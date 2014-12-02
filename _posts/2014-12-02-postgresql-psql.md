@@ -3,7 +3,7 @@ layout: post
 title: PostgreSQL 命令行 psql
 categories: [IT, DB]
 tags: [PostgreSQL]
-fullview: false
+fullview: true
 ---
 
 #psql
