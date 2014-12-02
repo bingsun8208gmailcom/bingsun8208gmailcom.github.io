@@ -1,0 +1,31 @@
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
+
+paginate: 10 # pagination based on number of posts
+paginate_path: "page:num"
+exclude: ["README.md"] # files to exclude
+highlighter: pygments
+markdown: kramdown
+
+
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      title: Falcon's Blogs
+
+description: Stylish Jekyll Theme
+author:
+  name: Falcon
+  email: bingsun8208@hotmail.com
+  github: bingsun8208gmailcom
+  twitter: 
+  pinterest: 
+  linkedin: 
+  bio: 茶隼的自言自语
+
+rss_path: feed.xml
+categories_path: categories.html
+tags_path: tags.html
+
+BASE_PATH:
