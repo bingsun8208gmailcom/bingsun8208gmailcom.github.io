@@ -7,6 +7,226 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Postgresql Psql</title>
+				<description>&lt;p&gt;﻿—
+layout: post
+title: PostgreSQL 命令行psql
+categories: [IT, DB]
+tags: [PostgreSQL]
+fullview: true
+—&lt;/p&gt;
+
+&lt;h1 id=&quot;psql&quot;&gt;psql&lt;/h1&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;语法&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;psql [参数]
+
+dbname	# 声明将要抽取的数据库名．dbname 缺省为 USER 环境变量的值．
+-a # 从脚本中响应所有输入
+-A # 取消表数据输出的对齐模式；功能与“-P format=unaligned”相同
+-c &amp;lt;查询&amp;gt; # 仅仅运行一个简单的查询（或者内部命令）然后退出
+-d # 指定连接到的数据库名（默认为$PGDATABASE或者当前登录用户名）
+-e # 回显发送到服务器的查询
+-E # 显示内部命令生成的查询语句
+-f &amp;lt;文件名&amp;gt; # 执行一个文件中的查询，然后退出
+-F &amp;lt;字符串&amp;gt; # 指定列数据显示分隔符（默认为“|”）；功能与“-P fieldsep=&amp;lt;字符串&amp;gt;”相同
+-h # 指定数据库服务器主机（默认为$PGHOST或者本地主机）
+-H # 设置表格输出模式为HTML；功能与“-P format=html”相同
+-l # 列出存在的数据库，然后退出
+-n # 禁用readline；阻止行编辑
+-o &amp;lt;文件名&amp;gt; # 将查询的输出发送到文件名指定文件（使用“|管道”的形式将输出发送到一个过滤程序）
+-p # 指定数据库服务器的端口（默认为$PGPORT或者编译期设置的默认值，通常为5432）
+-P var[=arg] # 设置打印选项var为arg（查看\pset命令）
+-q # 以静默方式运行（没有任何消息，仅有查询的输出）
+-R &amp;lt;字符串&amp;gt; # 设置记录的分隔符（默认为换行）；功能与“-P recordsep=&amp;lt;字符串&amp;gt;”相同
+-s # 设置为单步执行模式（每条查询都需要确认）
+-S # 设置单行模式（每行结束就认为查询输入结束，而不是分号）
+-t # 只打印行；功能与“-P tuples_only”相同
+-T &amp;lt;文本&amp;gt; # 设置HTML表格标记选项（width，border等）；功能与“-P tableattr=&amp;lt;text&amp;gt;”相同
+-v name=value # 设置psql变量name的值为value
+--version # 显示版本信息然后退出，也可以用“-V”
+-U # 声明 postmaster 在运行的机器的数据库用户名
+-W # 强制提示输入密码（如果需要密码，会自动执行）
+-x # 开启扩展表格输出；功能与“-P expanded”相同
+-X # 不读取启动文件（~/.psqlrc）
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;描述&lt;/h2&gt;
+
+&lt;p&gt;psql 是一个以终端为基础的 PostgreSQL 前端。它允许你交互地键入查询，把它们发出给 PostgreSQL， 然后看看查询的结果。另外，输入可以来自一个文件。还有， 它提供了一些元命令和多种类 shell 地特性来实现书写脚本以及对大量任务的自动化。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;退出状态&lt;/h2&gt;
+
+&lt;p&gt;如果正常结束，那么 psql 向 shell 返回 0， 如果自身发生致命错误，则返回 1（内存用尽，未找到文件等）， 如果和数据库的连接失效而且会话不再活跃则返回 2， 如果脚本中发生错误并且设置了 ON_ERROR_STOP 则返回 3。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;用法&lt;/h2&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;与一个数据库联接&lt;/h3&gt;
+
+&lt;p&gt;psql 是一个普通的 PostgreSQL 客户端应用。为了与一个数据库联接，你需要知道你的目标数据库， 服务器的主机名和端口号以及你希望以哪个用户的身份进行联接等信息。 我们可以通过命令行参数告诉 psql 这些信息，分别是 -d， -h，-p，和 -U。 如果有个参数不属于任何选项开关， 那么它会被解释成数据库名（或者是用户名——如果数据库名称已经给出了。）。 不是所有这些选项都是必须的，有缺省存在。 如果你省略主机名， psql 将通过 Unix 域套接字与本地主机的服务器相联， 或者在没有 unix 域套接字的机器上，通过 TCP/IP 与 localhost 连接。 缺省的端口号是编译时确定的。因为数据库服务器使用同样的缺省值， 所以在大多数设置下，你可能不需要声明端口号。缺省的用户名是你的 Unix 用户名，与数据库同名。 要注意的是你不能用任意用户名与任何数据库相联。你的数据库管理员应该告诉你你的访问权限。&lt;/p&gt;
+
+&lt;p&gt;如果缺省不太正确，那么你可以通过设置几个环境变量 PGDATABASE， PGHOST，PGPORT 和/或 PGUSER 为对应的值的方法节约几次敲击。 （其它的环境变量的信息，参阅 Section 28.11。） 另外，用一个 ~/.pgpass 文件来避免输入密码也是很方便的。 参阅 Section 28.12 获取更多信息。&lt;/p&gt;
+
+&lt;p&gt;如果因为任何原因而无法与数据库相联（例如，权限不够，服务器没有运行等）， psql 将返回一个错误并退出。&lt;/p&gt;
+
+&lt;h3 id=&quot;sql&quot;&gt;输入SQL命令&lt;/h3&gt;
+
+&lt;p&gt;通常状况下，psql 提供一个带有 psql 正在与之联接的接数据库名的，后缀 =&amp;gt;的提示符。例如，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ psql testdb
+Welcome to psql 8.1, the PostgreSQL interactive terminal.
+
+Type:  \copyright for distribution terms
+	   \h for help with SQL commands
+	   \? for help with psql commands
+	   \g or terminate with semicolon to execute query
+	   \q to quit
+
+testdb=&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;用户可以在这个提示符下键入SQL 查询。 通常，输入的行将在命令终止分号出现时送到服务器。 一行的终止并不结束命令！因此命令可以因清晰起见跨越好几行。如果命令发送出去而且执行没有错误， 命令结果会显示在屏幕上。&lt;/p&gt;
+
+&lt;p&gt;当命令正在进行时，psql 同样还轮询由 LISTEN 和 NOTIFY. 生成的异步通知信号。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;高级特性&lt;/h2&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;变量&lt;/h3&gt;
+
+&lt;p&gt;psql 提供类似通常 Unix 命令 shell 那样的变量替换特性。 变量只是简单的名称/数值对， 这里的值可以是任何长度的任何值。要设置一个变量，使用 psql 元命令 \set：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set foo bar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;把变量”foo” 设置为值 “bar”。 要检索变量的内容，在变量名前面放上冒号然后把它用在任意斜杠命令里：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \echo :foo
+bar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　　&lt;strong&gt;注意:&lt;/strong&gt; \set 的参数服从和其他命令一样的替换规则。 因此你可以构造有趣的引用，象 \set :foo ‘something’ 这样， 获得分别象Perl或 PHP那样有名的”软连接（soft links）”或”变量 变量”。 不幸的是（或者 万幸的？），用这些构造不能做任何有用的事情。另一方面， \set bar :foo 是一个非常有效的拷贝变量的方法。&lt;/p&gt;
+
+&lt;p&gt;如果你不带第二个参数调用\set， 那么只是设置这个变量而没有值。 要重置（或删除）一个变量，使用命令 \unset。&lt;/p&gt;
+
+&lt;p&gt;psql的内部变量可以包括任意顺序， 任意数量的字母，数字和下划线。 有一些常用变量被 psql 另眼相待。它们是一些选项设置， 这些选项在运行时可以通过改变变量的值或者改变一些应用的表现状态而改变。 尽管你可以把这些变量用于其他用途，但是我们不鼓励这么做，因为程序的特性可能会很快变得非常奇怪。 通常，所有特殊对待的变量都是由大写字母组成（可能还有数字和下划线）。 为了保证和未来的最大限度的兼容性，请避免使用这样的变量。 下面是一个所有特殊对待的变量列表。&lt;/p&gt;
+
+&lt;p&gt;AUTOCOMMIT
+　　如果是 on（缺省），那么每个 SQL 命令都在成功完成后自动提交。 要推迟这种模式下的提交，你必须输入一个 BEGIN 或者 START TRANSACTION SQL 命令。 如果是 off 或者未设置，SQL 命令不会提交，知道你明确地发出 COMMIT 或者 END。 关闭自动提交的模式是通过为你明确发出一个 BEGIN 实现的， 它是放在任何尚未在一个事务块中并且自己不是 BEGIN 或者其它事务控制命令也不是那些不能在事务块里执行的命令 （比如 VACUUM）的前面。&lt;/p&gt;
+
+&lt;p&gt;　　　　&lt;strong&gt;注意:&lt;/strong&gt; 在关闭自动提交的模式下，你必须明确放弃任何失败的事务，方法是执行 ABORT 或者 ROLLBACK。 还要注意如果你不提交就退出会话，你的工作会丢失。&lt;/p&gt;
+
+&lt;p&gt;　　　　&lt;strong&gt;注意:&lt;/strong&gt; 自动提交打开方式是 PostgreSQL 传统的行为， 但是关闭自动提交更接近 SQL 规范。如果你喜欢关闭自动提交，你应该在你的 .psqlrc 文件里设置它。&lt;/p&gt;
+
+&lt;p&gt;DBNAME
+　　你正在联接着的数据库名称。 每次你与一个数据库联结都会设置这个值（包括程序启动），但是可以删除。&lt;/p&gt;
+
+&lt;p&gt;ECHO
+　　如果置为 all， 输入的或者来自键盘或者一个脚本的所有行在分析或执行前都写到标准输出。 要在程序启动时声明这些，使用 -a如果设置为 queries， psql 只是在查询发送给服务器之前打印出来。 实现这个功能的命令行选项是 -e。&lt;/p&gt;
+
+&lt;p&gt;ECHO_HIDDEN
+　　当设置了这个变量并且一个反斜杠命令查询数据库时，首先显示查询。 这样你可以学习 PostgreSQL 内部的东西并且在你自己的程序里提供类似功能。如果你设置该变量的值为 “noexec”，查询只是显示出来但是实际上不发送到服务器和执行。&lt;/p&gt;
+
+&lt;p&gt;ENCODING
+　　当前的客户端字符集编码。&lt;/p&gt;
+
+&lt;p&gt;HISTCONTROL
+　　如果这个变量设置为 ignorespace， 以空格开始的行将不会进入历史列表。 如果设置为变量 ignoredups， 与以前历史记录里匹配的行也不会进入历史记录。值 ignoreboth是上面两个的结合。 如果删除此变量或者其值为任何与上面的值不同的东西， 所有交互模式读入的行都被保存入历史列表。&lt;/p&gt;
+
+&lt;p&gt;　　　　&lt;strong&gt;注意:&lt;/strong&gt; 这个特性是无耻地从 Bash 里剽窃来的。&lt;/p&gt;
+
+&lt;p&gt;HISTFILE
+　　此文件将用于存储历史列表。缺省值是 ~/.psql_history。 比如，在 ~/.psqlrc 里使用：&lt;/p&gt;
+
+&lt;p&gt;\set HISTFILE ~/.psql_history- :DBNAME
+　　将令 psql 为每个数据库维护一个独立的历史。&lt;/p&gt;
+
+&lt;p&gt;　　　　&lt;strong&gt;注意:&lt;/strong&gt; 这个特性是从 Bash 里偷学来的。&lt;/p&gt;
+
+&lt;p&gt;HISTSIZE
+　　存在命令历史里的命令的个数。缺省值是 500。&lt;/p&gt;
+
+&lt;p&gt;　　　　&lt;strong&gt;注意:&lt;/strong&gt; 这个特性是无耻地从 Bash里剽窃来的。&lt;/p&gt;
+
+&lt;p&gt;HOST
+　　当前你正联接的数据库服务器主机。 这是在每次你与数据库联接时（包括程序启动）设置的，但是可以删除。&lt;/p&gt;
+
+&lt;p&gt;IGNOREEOF
+　　如果删除此变量，向一个交互的 psql会话发送一个 EOF （通常是 Control-D）将终止应用。如果设置为一个数字值，那么在应用终止前该数值的 EOF 字符将被忽略。 如果设置了此变量但是没有数字值，缺省是 10。&lt;/p&gt;
+
+&lt;p&gt;　　　　&lt;strong&gt;注意:&lt;/strong&gt; 这个特性是无耻地从 Bash 里剽窃来的。&lt;/p&gt;
+
+&lt;p&gt;LASTOID
+　　最后影响的oid值，即为从一条 INSERT 或 lo_insert 命令返回的值。 此变量只保证在下一条 SQL 命令的结果显示之前有效。&lt;/p&gt;
+
+&lt;p&gt;ON_ERROR_ROLLBACK
+　　如果是 on，如果一个事务块里的语句产生一个错误， 那么这个错误被忽略而事务讲继续。如果是 interactive， 那么这样的错误只是在交互的会话里忽略，而不是在从读取脚本文件的时候。 如果是 off（缺省），事务块里一个语句生成的错误将会回滚整个事务。 on_error_rollback-on 的模式是通过在一个事务块的每个命令前为你隐含地发出一个 SAVEPONT 的方式工作的，在发生错误的时候回滚到该事务块。&lt;/p&gt;
+
+&lt;p&gt;ON_ERROR_STOP
+　　缺省时，如果非交互的脚本碰到一个错误，象一条错误的 SQL 命令或者内部元命令，处理会继续进行。 这是 psql 的传统特性， 但是有时候我们不太希望这样。如果设置了这个变量，脚本处理将马上停止。 如果该脚本是从另外一个脚本调用的，那个脚本也会按同样的方式停止。 如果最外层的脚本不是从一次交互的 psql 会话中调用的而是用 -f 选项调用的，psql 将返回错误代码 3，以示这个情况与致命错误条件的区别（错误代码 1）。&lt;/p&gt;
+
+&lt;p&gt;PORT
+　　当前你正在联接的数据库服务器的端口。 这是在每次你与数据库联接时（包括程序启动）设置的，但是可以删除。&lt;/p&gt;
+
+&lt;p&gt;PROMPT1
+PROMPT2
+PROMPT3
+　　这些指明psql 显示的提示符看上去象什么。 参阅下面的 提示符。&lt;/p&gt;
+
+&lt;p&gt;QUIET
+　　这个变量等效于命令行选项 -q。 可能在交互模式下没有什么用。&lt;/p&gt;
+
+&lt;p&gt;SINGLELINE
+　　这个变量等效于设置命令行选项 -S。你可以在运行时删除或设置它。&lt;/p&gt;
+
+&lt;p&gt;SINGLESTEP
+　　这个变量等效于命令行选项 -s。&lt;/p&gt;
+
+&lt;p&gt;USER
+　　当前你正用于联接的数据库用户。 这是在每次你与数据库联接时（包括程序启动）设置的，但是可以删除/重置。&lt;/p&gt;
+
+&lt;p&gt;VERBOSITY
+　　这个选项可以设置为值 default，verbose，或者 terse 以控制错误报告的冗余行。&lt;/p&gt;
+
+&lt;h3 id=&quot;sql-1&quot;&gt;SQL代换&lt;/h3&gt;
+
+&lt;p&gt;一个附加的 psql 变量的有用特性是你可以把它们替换（”代换”）成正规的 SQL 语句。这样做的语法同样还是变量名前面加一个冒号（:）。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set foo 'my_table'
+testdb=&amp;gt; SELECT * FROM :foo;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将会查询表my_table。变量的值是逐字拷贝的， 所以它甚至可以包含不对称的引号或反斜杠命令。你必须保证你输入的东西是有意义的。 变量替换将不会在引号引起来的 SQL 语句里面发生。&lt;/p&gt;
+
+&lt;p&gt;利用这个功能的一个时髦的应用是通过使用一个随后的语句中最后插入的 OID 建立一个外键仿真场景。 另一个可能用到这个机制的地方是把一个文件的内容拷贝到一个字段里面去。 首先把文件装载到一个变量然后象上面那样处理。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set content '\'' `cat my_file.txt` '\''
+testdb=&amp;gt; INSERT INTO my_table VALUES (:content);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样处理的一个可能问题是 my_file.txt 可能包含单引号。这些需要被逃逸以免在处理第三行时不会导致语法错误。 可以使用程序 sed来做这个处理：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set content '\'' `sed -e &quot;s/'/\\\\\\'/g&quot; &amp;lt; my_file.txt` '\''
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;观察正确数量的反斜杠（6）！你可以这样解释它：在 psql 分析完这行后，它把 sed -e “s/’/\'/g” &amp;lt; my_file.txt 传递给shell。 shell 将对双引号里的东西做其处理然后用参数 -e 和 s/’/\‘/g执行 sed。当 sed分析这些时， 它将把双反斜杠替换为单个反斜杠然后进行替换。 可能有时候你认为所有 Unix 命令使用同一个逃逸字符是个好事。 但具有讽刺意味的事实是你可能不得不逃逸所有反斜杠，因为 SQL 文本常量同样也惨遭这种解释。 这种情况下你可能最好在外部准备文件。&lt;/p&gt;
+
+&lt;p&gt;因为冒号也可以合法的出现在 SQL 命令里，便有下面规则的应用： 如果没有设置变量，字符序列 “冒号+名称” 不会被改变。 在任何情况下你都可以用反斜杠逃逸冒号以保护它免于被解释。 （变量的冒号语法是 SQL 用于嵌入查询语言的标准，如 ECPG。用于数组片段和类型转换的冒号语法是 PostgreSQL 扩展，因此有冲突。）&lt;/p&gt;
+
+&lt;h2 id=&quot;windows-&quot;&gt;Windows 用户需要注意的地方&lt;/h2&gt;
+
+&lt;p&gt;psql 是以一种”控制台应用”的方式制作的。 因为 Windows 控制台窗口和系统其它部分使用不同的编码， 所以在 psql 里使用 8 位字符的时候必须采取特殊的注意措施。 如果 psql 检测到一个有问题的控制台代码页， 那么它在启动的时候会警告你。要修改控制台代码页，有两件事是必须做的：&lt;/p&gt;
+
+&lt;p&gt;通过输入 cmd.exe /c chcp 1252 设置代码页。（1252 是适用于德语的代码页；换成合适你的数值。译注：中文 GB2312 的代码页是 936。） 如果你使用 Cygwin，你可以在 /etc/profile 里面输入这条命令。&lt;/p&gt;
+
+&lt;p&gt;把控制台字体设置为 “Lucida Console”，因为光栅字体（点阵字体）不能在 ANSI 代码页下工作。&lt;/p&gt;
+</description>
+				<pubDate>Tue, 02 Dec 2014 00:00:00 +0800</pubDate>
+				<link>/2014/12/02/postgresql-psql.html</link>
+				<guid isPermaLink="true">/2014/12/02/postgresql-psql.html</guid>
+			</item>
+		
+			<item>
 				<title>PostgreSQL 命令行pg_dump</title>
 				<description>&lt;h1 id=&quot;pgdump&quot;&gt;pg_dump&lt;/h1&gt;
 
