@@ -19,7 +19,9 @@
 	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
 	<link href="/assets/css/style.css" rel="stylesheet">
-
+	<link href="/assets/css/highlight/vs.css" rel="stylesheet">
+	<script type="text/javascript" src="/assets/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/assets/js/highlight.pack.js"></script>
 	<!-- Le fav and touch icons -->
 	<!-- Update these with your own images
 	<link rel="shortcut icon" href="images/favicon.ico">
@@ -29,6 +31,13 @@
 	-->
 
 	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('pre code').each(function(i, block) {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -136,6 +145,80 @@
   <h1>Falcon's Blogs </h1>
 </div>
 
+
+
+<article class="home">
+
+  <span class="post-date">
+    
+    December
+    19th,
+    
+    2014
+  </span>
+
+  <h2>
+    <a href="/it/csharp/2014/12/19/linq-groupby.html">Linq中GroupBy的应用</a>
+  </h2>
+
+  <div>
+    
+    <h1 id="group">Group</h1>
+<p>Group是进行分组操作，同SQL中的Group By类似。
+接口原型：</p>
+
+<pre><code>public static IEnumerable&lt;IGrouping&lt;TKey, TSource&gt;&gt; GroupBy&lt;TSource, TKey&gt;(this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector);
+
+public static IEnumerable&lt;TResult&gt; GroupBy&lt;TSource, TKey, TResult&gt;(this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector, Func&lt;TKey, IEnumerable&lt;TSource&gt;, TResult&gt; resultSelector);
+
+public static IEnumerable&lt;IGrouping&lt;TKey, TElement&gt;&gt; GroupBy&lt;TSource, TKey, TElement&gt;(this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector, Func&lt;TSource, TElement&gt; elementSelector);
+
+public static IEnumerable&lt;IGrouping&lt;TKey, TSource&gt;&gt; GroupBy&lt;TSource, TKey&gt;(this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector, IEqualityComparer&lt;TKey&gt; comparer);
+
+public static IEnumerable&lt;TResult&gt; GroupBy&lt;TSource, TKey, TResult&gt;(this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector, Func&lt;TKey, IEnumerable&lt;TSource&gt;, TResult&gt; resultSelector, IEqualityComparer&lt;TKey&gt; comparer);
+
+public static IEnumerable&lt;TResult&gt; GroupBy&lt;TSource, TKey, TElement, TResult&gt;(this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector, Func&lt;TSource, TElement&gt; elementSelector, Func&lt;TKey, IEnumerable&lt;TElement&gt;, TResult&gt; resultSelector);
+
+public static IEnumerable&lt;IGrouping&lt;TKey, TElement&gt;&gt; GroupBy&lt;TSource, TKey, TElement&gt;(this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector, Func&lt;TSource, TElement&gt; elementSelector, IEqualityComparer&lt;TKey&gt; comparer);
+
+public static IEnumerable&lt;TResult&gt; GroupBy&lt;TSource, TKey, TElement, TResult&gt;(this IEnumerable&lt;TSource&gt; source, Func&lt;TSource, TKey&gt; keySelector, Func&lt;TSource, TElement&gt; elementSelector, Func&lt;TKey, IEnumerable&lt;TElement&gt;, TResult&gt; resultSelector, IEqualityComparer&lt;TKey&gt; comparer);
+</code></pre>
+
+<p>接口重载返回两种类型 IEnumerable<tresult> 和 IEnumerable&lt;IGrouping&lt;TKey, TElement&gt;&gt;
+示例：</tresult></p>
+
+<pre><code>// 1. Lambda表达式方式
+var result = from score in DataSource.Scores 
+         group score by score.StudentID into scoreGroup 
+         select scoreGroup;
+
+// 2. 链式表达式方式
+var result = ScoreList.GroupBy(s =&gt; s.StudentID, s =&gt; s);
+</code></pre>
+
+<p>其中scoreGroup为IGrouping&lt;TKey, TSource&gt;类型，返回结果为IEnumerable&lt;IGrouping&lt;TKey, TSource»
+IGrouping&lt;TKey, TSource»接口原型：</p>
+
+<pre><code>public interface IGrouping&lt;out TKey, out TElement&gt; : IEnumerable&lt;TElement&gt;, IEnumerable
+{
+    TKey Key { get; }
+}
+</code></pre>
+
+<p>其中Key为分组依据的字段</p>
+
+<pre><code>foreach (var score in result)
+{
+	var studentID = score.Key;
+	var list = score.ToList();
+}
+</code></pre>
+
+
+    
+  </div>
+
+</article>
 
 
 <article class="home">

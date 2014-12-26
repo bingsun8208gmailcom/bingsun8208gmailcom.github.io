@@ -19,7 +19,9 @@
 	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
 	<link href="/assets/css/style.css" rel="stylesheet">
-
+	<link href="/assets/css/highlight/vs.css" rel="stylesheet">
+	<script type="text/javascript" src="/assets/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/assets/js/highlight.pack.js"></script>
 	<!-- Le fav and touch icons -->
 	<!-- Update these with your own images
 	<link rel="shortcut icon" href="images/favicon.ico">
@@ -29,6 +31,13 @@
 	-->
 
 	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('pre code').each(function(i, block) {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -275,7 +284,7 @@ except:
 		  
 			 
 				<li><a href="/categories.html#it-ref">
-					it <span>(3)</span>
+					it <span>(4)</span>
 					,
 				</a></li>
 			 
@@ -342,7 +351,7 @@ except:
 		  <li class="previous"><a href="/it/db/2014/12/02/postgresql-psql.html" title="PostgreSQL 命令行 psql">&larr; Previous</a></li>
 		  
 		  
-			<li class="next disabled"><a>Next &rarr;</a>
+		  <li class="next"><a href="/it/csharp/2014/12/19/linq-groupby.html" title="Linq中GroupBy的应用">Next &rarr;</a></li>
 		  
 		</ul>
 

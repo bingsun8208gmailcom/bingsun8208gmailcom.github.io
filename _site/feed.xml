@@ -7,6 +7,65 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Linq中GroupBy的应用</title>
+				<description>&lt;h1 id=&quot;group&quot;&gt;Group&lt;/h1&gt;
+&lt;p&gt;Group是进行分组操作，同SQL中的Group By类似。
+接口原型：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public static IEnumerable&amp;lt;IGrouping&amp;lt;TKey, TSource&amp;gt;&amp;gt; GroupBy&amp;lt;TSource, TKey&amp;gt;(this IEnumerable&amp;lt;TSource&amp;gt; source, Func&amp;lt;TSource, TKey&amp;gt; keySelector);
+
+public static IEnumerable&amp;lt;TResult&amp;gt; GroupBy&amp;lt;TSource, TKey, TResult&amp;gt;(this IEnumerable&amp;lt;TSource&amp;gt; source, Func&amp;lt;TSource, TKey&amp;gt; keySelector, Func&amp;lt;TKey, IEnumerable&amp;lt;TSource&amp;gt;, TResult&amp;gt; resultSelector);
+
+public static IEnumerable&amp;lt;IGrouping&amp;lt;TKey, TElement&amp;gt;&amp;gt; GroupBy&amp;lt;TSource, TKey, TElement&amp;gt;(this IEnumerable&amp;lt;TSource&amp;gt; source, Func&amp;lt;TSource, TKey&amp;gt; keySelector, Func&amp;lt;TSource, TElement&amp;gt; elementSelector);
+
+public static IEnumerable&amp;lt;IGrouping&amp;lt;TKey, TSource&amp;gt;&amp;gt; GroupBy&amp;lt;TSource, TKey&amp;gt;(this IEnumerable&amp;lt;TSource&amp;gt; source, Func&amp;lt;TSource, TKey&amp;gt; keySelector, IEqualityComparer&amp;lt;TKey&amp;gt; comparer);
+
+public static IEnumerable&amp;lt;TResult&amp;gt; GroupBy&amp;lt;TSource, TKey, TResult&amp;gt;(this IEnumerable&amp;lt;TSource&amp;gt; source, Func&amp;lt;TSource, TKey&amp;gt; keySelector, Func&amp;lt;TKey, IEnumerable&amp;lt;TSource&amp;gt;, TResult&amp;gt; resultSelector, IEqualityComparer&amp;lt;TKey&amp;gt; comparer);
+
+public static IEnumerable&amp;lt;TResult&amp;gt; GroupBy&amp;lt;TSource, TKey, TElement, TResult&amp;gt;(this IEnumerable&amp;lt;TSource&amp;gt; source, Func&amp;lt;TSource, TKey&amp;gt; keySelector, Func&amp;lt;TSource, TElement&amp;gt; elementSelector, Func&amp;lt;TKey, IEnumerable&amp;lt;TElement&amp;gt;, TResult&amp;gt; resultSelector);
+
+public static IEnumerable&amp;lt;IGrouping&amp;lt;TKey, TElement&amp;gt;&amp;gt; GroupBy&amp;lt;TSource, TKey, TElement&amp;gt;(this IEnumerable&amp;lt;TSource&amp;gt; source, Func&amp;lt;TSource, TKey&amp;gt; keySelector, Func&amp;lt;TSource, TElement&amp;gt; elementSelector, IEqualityComparer&amp;lt;TKey&amp;gt; comparer);
+
+public static IEnumerable&amp;lt;TResult&amp;gt; GroupBy&amp;lt;TSource, TKey, TElement, TResult&amp;gt;(this IEnumerable&amp;lt;TSource&amp;gt; source, Func&amp;lt;TSource, TKey&amp;gt; keySelector, Func&amp;lt;TSource, TElement&amp;gt; elementSelector, Func&amp;lt;TKey, IEnumerable&amp;lt;TElement&amp;gt;, TResult&amp;gt; resultSelector, IEqualityComparer&amp;lt;TKey&amp;gt; comparer);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接口重载返回两种类型 IEnumerable&lt;tresult&gt; 和 IEnumerable&amp;lt;IGrouping&amp;lt;TKey, TElement&amp;gt;&amp;gt;
+示例：&lt;/tresult&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 1. Lambda表达式方式
+var result = from score in DataSource.Scores 
+         group score by score.StudentID into scoreGroup 
+         select scoreGroup;
+
+// 2. 链式表达式方式
+var result = ScoreList.GroupBy(s =&amp;gt; s.StudentID, s =&amp;gt; s);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中scoreGroup为IGrouping&amp;lt;TKey, TSource&amp;gt;类型，返回结果为IEnumerable&amp;lt;IGrouping&amp;lt;TKey, TSource»
+IGrouping&amp;lt;TKey, TSource»接口原型：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public interface IGrouping&amp;lt;out TKey, out TElement&amp;gt; : IEnumerable&amp;lt;TElement&amp;gt;, IEnumerable
+{
+    TKey Key { get; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中Key为分组依据的字段&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;foreach (var score in result)
+{
+	var studentID = score.Key;
+	var list = score.ToList();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+</description>
+				<pubDate>Fri, 19 Dec 2014 00:00:00 +0800</pubDate>
+				<link>/it/csharp/2014/12/19/linq-groupby.html</link>
+				<guid isPermaLink="true">/it/csharp/2014/12/19/linq-groupby.html</guid>
+			</item>
+		
+			<item>
 				<title>Python异常处理</title>
 				<description>&lt;p&gt;一个典型的Python错误处理语句：&lt;/p&gt;
 

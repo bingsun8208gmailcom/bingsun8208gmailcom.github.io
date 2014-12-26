@@ -19,7 +19,9 @@
 	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
 	<link href="/assets/css/style.css" rel="stylesheet">
-
+	<link href="/assets/css/highlight/vs.css" rel="stylesheet">
+	<script type="text/javascript" src="/assets/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/assets/js/highlight.pack.js"></script>
 	<!-- Le fav and touch icons -->
 	<!-- Update these with your own images
 	<link rel="shortcut icon" href="images/favicon.ico">
@@ -29,6 +31,13 @@
 	-->
 
 	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('pre code').each(function(i, block) {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -145,6 +154,20 @@
     
       
       <li>
+          <a href="#CSharp-ref" data-toggle="tab">
+            CSharp<span class="badge pull-right">1</span>
+         </a>
+      </li>
+   
+      
+      <li>
+          <a href="#Linq-ref" data-toggle="tab">
+            Linq<span class="badge pull-right">1</span>
+         </a>
+      </li>
+   
+      
+      <li>
           <a href="#PostgreSQL-ref" data-toggle="tab">
             PostgreSQL<span class="badge pull-right">2</span>
          </a>
@@ -161,6 +184,26 @@
 </div>
 <!-- Tab panes -->
 <div class="tab-content col-sm-9 col-xs-6">
+  
+    
+    <div class="tab-pane" id="CSharp-ref">
+      <h2 style="margin-top: 0px">Posts tagged  with CSharp</h2>
+      <ul class="list-unstyled">
+        
+          <li style="line-height: 35px;"><a href="/it/csharp/2014/12/19/linq-groupby.html">Linq中GroupBy的应用</a> <span class="text-muted">- December 19, 2014</span></li>
+        
+      </ul>
+    </div>
+  
+    
+    <div class="tab-pane" id="Linq-ref">
+      <h2 style="margin-top: 0px">Posts tagged  with Linq</h2>
+      <ul class="list-unstyled">
+        
+          <li style="line-height: 35px;"><a href="/it/csharp/2014/12/19/linq-groupby.html">Linq中GroupBy的应用</a> <span class="text-muted">- December 19, 2014</span></li>
+        
+      </ul>
+    </div>
   
     
     <div class="tab-pane" id="PostgreSQL-ref">

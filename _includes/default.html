@@ -21,7 +21,9 @@
 	<link href="{{ site.BASE_PATH }}/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="{{ site.BASE_PATH }}/assets/resources/syntax/syntax.css" rel="stylesheet">
 	<link href="{{ site.BASE_PATH }}/assets/css/style.css" rel="stylesheet">
-
+	<link href="{{ site.BASE_PATH }}/assets/css/highlight/vs.css" rel="stylesheet">
+	<script type="text/javascript" src="{{ site.BASE_PATH }}/assets/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="{{ site.BASE_PATH }}/assets/js/highlight.pack.js"></script>
 	<!-- Le fav and touch icons -->
 	<!-- Update these with your own images
 	<link rel="shortcut icon" href="images/favicon.ico">
@@ -31,6 +33,13 @@
 	-->
 
 	<link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.BASE_PATH }}/feed.xml">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('pre code').each(function(i, block) {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 </head>
 
 <body>

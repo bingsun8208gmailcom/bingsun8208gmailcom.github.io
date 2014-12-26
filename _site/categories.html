@@ -19,7 +19,9 @@
 	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
 	<link href="/assets/css/style.css" rel="stylesheet">
-
+	<link href="/assets/css/highlight/vs.css" rel="stylesheet">
+	<script type="text/javascript" src="/assets/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="/assets/js/highlight.pack.js"></script>
 	<!-- Le fav and touch icons -->
 	<!-- Update these with your own images
 	<link rel="shortcut icon" href="images/favicon.ico">
@@ -29,6 +31,13 @@
 	-->
 
 	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('pre code').each(function(i, block) {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -143,7 +152,7 @@
         
             <li>
                 <a href="/categories.html#it-ref" data-toggle="tab">
-                    It <span class="badge pull-right">3</span>
+                    It <span class="badge pull-right">4</span>
                 </a>
             </li>
         
@@ -159,6 +168,12 @@
                 </a>
             </li>
         
+            <li>
+                <a href="/categories.html#csharp-ref" data-toggle="tab">
+                    Csharp <span class="badge pull-right">1</span>
+                </a>
+            </li>
+        
       
       
     </ul>
@@ -170,6 +185,12 @@
       <h2 style="margin-top: 0px">Posts in It</h2>
       <ul class="list-unstyled">
         
+        
+          
+            
+              <li style="line-height: 35px;"><a href="/it/csharp/2014/12/19/linq-groupby.html">Linq中GroupBy的应用</a> <span class="text-muted">- December 19, 2014</span></li>
+            
+          
         
           
             
@@ -222,6 +243,21 @@
           
             
               <li style="line-height: 35px;"><a href="/it/python/2014/12/05/python-errors.html">Python异常处理</a> <span class="text-muted">- December 05, 2014</span></li>
+            
+          
+        
+        
+      </ul>
+    </div>
+  
+    <div class="tab-pane" id="csharp-ref">
+      <h2 style="margin-top: 0px">Posts in Csharp</h2>
+      <ul class="list-unstyled">
+        
+        
+          
+            
+              <li style="line-height: 35px;"><a href="/it/csharp/2014/12/19/linq-groupby.html">Linq中GroupBy的应用</a> <span class="text-muted">- December 19, 2014</span></li>
             
           
         
