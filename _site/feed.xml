@@ -7,6 +7,158 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Objective-C 语法简介</title>
+				<description>&lt;h1 id=&quot;section&quot;&gt;概述&lt;/h1&gt;
+
+&lt;p&gt;Objective-C，通常写作ObjC和较少用的Objective C或Obj-C，是扩充C的面向对象编程语言。它主要使用于Mac OS X和GNUstep这两个使用OpenStep标准的系统，而在NeXTSTEP和OpenStep中它更是基本语言。&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;简明概述&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;开始学习前，假设你已经具备了一些C语言的基础知识，包括变量类型、函数、返回值、以及指针的相关概念。&lt;/li&gt;
+  &lt;li&gt;Objective-C，是 C 的衍生体，继承了所有 C 语言的特性。是有一些例外，但是它们不是继承于 C 的语言特性本身。&lt;/li&gt;
+  &lt;li&gt;nil：在 C/C++ 你或许曾使用过 NULL，而在 Objective-C 中则是 nil。不同之处是你可以传递消息给 nil（例如 [nil message];），这是完全合法的，然而你却不能对 NULL 如法炮制，由于nil是一个Objective-C类对象的引用类型（即id类型），而NULL在C语言中通常被定义为(void*)0，因而并不是一个Objective-C类对象的引用。&lt;/li&gt;
+  &lt;li&gt;BOOL：C没有正式的布尔类型，而在 Objective-C 中也不是「真的」有。它是包含在 Foundation classes（基本类别库）中（即 import NSObject.h；nil 也是包括在这个标头档内）。BOOL 在 Objective-C 中有两种型态：YES 或 NO，而不是 TRUE 或 FALSE。&lt;/li&gt;
+  &lt;li&gt;#import vs #include：就如同你在 hello world 范例中看到的，我们使用了 #import。#import 由 gcc 编译器支援。我并不建议使用 #include，#import 基本上跟 .h 档头尾的 #ifndef #define #endif 相同。许多程式员们都同意，使用这些东西这是十分愚蠢的。无论如何，使用 #import 就对了。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;hello-world&quot;&gt;Hello World&lt;/h1&gt;
+
+&lt;h2 id=&quot;hellom&quot;&gt;hello.m&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;#import &amp;lt;Foundation/Foundation.h&amp;gt;
+
+int main( int argc, const char *argv[] ) {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSLog( @&quot;hello world&quot; );
+	[pool drain];
+	return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;输出&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;hello world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在Objective-C中使用 #import 代替 #include &lt;/li&gt;
+  &lt;li&gt;Objective-C的代码文件使用.m后缀&lt;/li&gt;
+  &lt;li&gt;NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; 代表程序将在缓存池里预留内存空间， [pool drain]; 表示释放内存空间。&lt;/li&gt;
+  &lt;li&gt;NSLog具有自动换行功能，因此不需要\n&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;section-3&quot;&gt;类&lt;/h1&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;示例&lt;/h2&gt;
+
+&lt;h3 id=&quot;fractionh&quot;&gt;Fraction.h&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#import &amp;lt;Foundation/Foundation.h&amp;gt;
+@interface Fraction : NSObject {
+	int numerator;
+	int denominator;
+}
+
+- (void) print;
+- (void) setNumberator : (int) n;
+- (void) setDenominator : (int) d;
+- (int) numerator;
+- (int) denominator;
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;fractionm&quot;&gt;Fraction.m&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#import &quot;Fraction.h&quot;
+
+@implementation Fraction 
+
+- (void) print {
+	NSLog(@&quot;%i/%i&quot;, numerator, denominator);
+}
+
+- (void) setNumberator : (int) n {
+	numerator = n;
+}
+- (void) setDenominator : (int) d {
+	denominator = d;
+}
+- (int) numerator {
+	return numerator;
+}
+- (int) denominator {
+	return denominator;
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;NSObject是Objective-C中所有类的基类，它位于类继承链的最顶端，等同于C#中的Object。&lt;/li&gt;
+  &lt;li&gt;夹在 @interface Fraction : NSObject { … } 中的被称为实例变量(instance variables)。&lt;/li&gt;
+  &lt;li&gt;没有设定存取权限（protected, private, public)时，默认权限为 protected 。&lt;/li&gt;
+  &lt;li&gt;instance methods 以 - 开头（等同于C#的成员函数），class level methods 以 + 开头（等同于C#的static静态函数）。&lt;/li&gt;
+  &lt;li&gt;类(@interface)以 @end 作为结束符。&lt;/li&gt;
+  &lt;li&gt;在.m文件中，使用@implementation修饰符来实现.h文件中定义的类。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;合成存储器方法&lt;/h2&gt;
+
+&lt;p&gt;前例中，Fraction类中numerator,denominator分别手工设置了getter和setter，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#import &amp;lt;Foundation/Foundation.h&amp;gt;
+@interface Fraction : NSObject {
+	int numerator;
+	int denominator;
+}
+
+- (void) print;
+- (void) setNumberator : (int) n;
+- (void) setDenominator : (int) d;
+- (int) numerator;
+- (int) denominator;
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;考虑改进方法，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Fraction.h
+#import &amp;lt;Foundation/Foundation.h&amp;gt;
+@interface Fraction : NSObject {
+	int numerator;
+	int denominator;
+}
+
+@property int numerator, denominator;
+- (void) print;
+
+@end
+
+// Fraction.m
+
+@implementation Fraction
+
+@synthesize numerator, denominator;
+
+- (void) print {
+	NSLog(@&quot;%i/%i&quot;, numerator, denominator);
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中@property int numerator, denominator;是为类Fraction定义两个实例变量numerator, denominator；
+@synthesize则是告诉编译器要为numerator, denominator自动生成getter，setter方法。&lt;/p&gt;
+</description>
+				<pubDate>Sat, 10 Jan 2015 00:00:00 +0800</pubDate>
+				<link>/it/objective-c/2015/01/10/objective-c-start.html</link>
+				<guid isPermaLink="true">/it/objective-c/2015/01/10/objective-c-start.html</guid>
+			</item>
+		
+			<item>
 				<title>Linq中GroupBy的应用</title>
 				<description>&lt;h1 id=&quot;group&quot;&gt;Group&lt;/h1&gt;
 &lt;p&gt;Group是进行分组操作，同SQL中的Group By类似。

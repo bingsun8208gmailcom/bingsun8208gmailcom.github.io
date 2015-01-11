@@ -151,6 +151,173 @@
 
   <span class="post-date">
     
+    January
+    10th,
+    
+    2015
+  </span>
+
+  <h2>
+    <a href="/it/objective-c/2015/01/10/objective-c-start.html">Objective-C 语法简介</a>
+  </h2>
+
+  <div>
+    
+    <h1 id="section">概述</h1>
+
+<p>Objective-C，通常写作ObjC和较少用的Objective C或Obj-C，是扩充C的面向对象编程语言。它主要使用于Mac OS X和GNUstep这两个使用OpenStep标准的系统，而在NeXTSTEP和OpenStep中它更是基本语言。</p>
+
+<h1 id="section-1">简明概述</h1>
+
+<ul>
+  <li>开始学习前，假设你已经具备了一些C语言的基础知识，包括变量类型、函数、返回值、以及指针的相关概念。</li>
+  <li>Objective-C，是 C 的衍生体，继承了所有 C 语言的特性。是有一些例外，但是它们不是继承于 C 的语言特性本身。</li>
+  <li>nil：在 C/C++ 你或许曾使用过 NULL，而在 Objective-C 中则是 nil。不同之处是你可以传递消息给 nil（例如 [nil message];），这是完全合法的，然而你却不能对 NULL 如法炮制，由于nil是一个Objective-C类对象的引用类型（即id类型），而NULL在C语言中通常被定义为(void*)0，因而并不是一个Objective-C类对象的引用。</li>
+  <li>BOOL：C没有正式的布尔类型，而在 Objective-C 中也不是「真的」有。它是包含在 Foundation classes（基本类别库）中（即 import NSObject.h；nil 也是包括在这个标头档内）。BOOL 在 Objective-C 中有两种型态：YES 或 NO，而不是 TRUE 或 FALSE。</li>
+  <li>#import vs #include：就如同你在 hello world 范例中看到的，我们使用了 #import。#import 由 gcc 编译器支援。我并不建议使用 #include，#import 基本上跟 .h 档头尾的 #ifndef #define #endif 相同。许多程式员们都同意，使用这些东西这是十分愚蠢的。无论如何，使用 #import 就对了。</li>
+</ul>
+
+<h1 id="hello-world">Hello World</h1>
+
+<h2 id="hellom">hello.m</h2>
+
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+
+int main( int argc, const char *argv[] ) {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSLog( @"hello world" );
+	[pool drain];
+	return 0;
+}
+</code></pre>
+
+<h2 id="section-2">输出</h2>
+
+<pre><code>hello world
+</code></pre>
+
+<ul>
+  <li>在Objective-C中使用 #import 代替 #include </li>
+  <li>Objective-C的代码文件使用.m后缀</li>
+  <li>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; 代表程序将在缓存池里预留内存空间， [pool drain]; 表示释放内存空间。</li>
+  <li>NSLog具有自动换行功能，因此不需要\n</li>
+</ul>
+
+<h1 id="section-3">类</h1>
+
+<h2 id="section-4">示例</h2>
+
+<h3 id="fractionh">Fraction.h</h3>
+
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+@interface Fraction : NSObject {
+	int numerator;
+	int denominator;
+}
+
+- (void) print;
+- (void) setNumberator : (int) n;
+- (void) setDenominator : (int) d;
+- (int) numerator;
+- (int) denominator;
+
+@end
+</code></pre>
+
+<h3 id="fractionm">Fraction.m</h3>
+
+<pre><code>#import "Fraction.h"
+
+@implementation Fraction 
+
+- (void) print {
+	NSLog(@"%i/%i", numerator, denominator);
+}
+
+- (void) setNumberator : (int) n {
+	numerator = n;
+}
+- (void) setDenominator : (int) d {
+	denominator = d;
+}
+- (int) numerator {
+	return numerator;
+}
+- (int) denominator {
+	return denominator;
+}
+
+@end
+</code></pre>
+
+<ul>
+  <li>NSObject是Objective-C中所有类的基类，它位于类继承链的最顶端，等同于C#中的Object。</li>
+  <li>夹在 @interface Fraction : NSObject { … } 中的被称为实例变量(instance variables)。</li>
+  <li>没有设定存取权限（protected, private, public)时，默认权限为 protected 。</li>
+  <li>instance methods 以 - 开头（等同于C#的成员函数），class level methods 以 + 开头（等同于C#的static静态函数）。</li>
+  <li>类(@interface)以 @end 作为结束符。</li>
+  <li>在.m文件中，使用@implementation修饰符来实现.h文件中定义的类。</li>
+</ul>
+
+<h2 id="section-5">合成存储器方法</h2>
+
+<p>前例中，Fraction类中numerator,denominator分别手工设置了getter和setter，</p>
+
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+@interface Fraction : NSObject {
+	int numerator;
+	int denominator;
+}
+
+- (void) print;
+- (void) setNumberator : (int) n;
+- (void) setDenominator : (int) d;
+- (int) numerator;
+- (int) denominator;
+
+@end
+</code></pre>
+
+<p>考虑改进方法，</p>
+
+<pre><code>// Fraction.h
+#import &lt;Foundation/Foundation.h&gt;
+@interface Fraction : NSObject {
+	int numerator;
+	int denominator;
+}
+
+@property int numerator, denominator;
+- (void) print;
+
+@end
+
+// Fraction.m
+
+@implementation Fraction
+
+@synthesize numerator, denominator;
+
+- (void) print {
+	NSLog(@"%i/%i", numerator, denominator);
+}
+
+@end
+</code></pre>
+
+<p>其中@property int numerator, denominator;是为类Fraction定义两个实例变量numerator, denominator；
+@synthesize则是告诉编译器要为numerator, denominator自动生成getter，setter方法。</p>
+
+    
+  </div>
+
+</article>
+
+
+<article class="home">
+
+  <span class="post-date">
+    
     December
     19th,
     
@@ -688,7 +855,7 @@ pg_dump 不能处理大对象．大对象被忽略因而必须手工操作．</p
 		<footer>
 			<hr/>
 			<p>
-				&copy; 2014 Falcon with Jekyll. Theme: <a href="https://github.com/dbtek/dbyll">dbyll</a> by dbtek.
+				&copy; 2015 Falcon with Jekyll. Theme: <a href="https://github.com/dbtek/dbyll">dbyll</a> by dbtek.
 			</p>
 		</footer>
 	</div>
