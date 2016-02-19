@@ -42,7 +42,7 @@ int main( int argc, const char *argv[] ) {
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;在Objective-C中使用 #import 代替 #include &lt;/li&gt;
+  &lt;li&gt;在Objective-C中使用 #import 代替 #include&lt;/li&gt;
   &lt;li&gt;Objective-C的代码文件使用.m后缀&lt;/li&gt;
   &lt;li&gt;NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; 代表程序将在缓存池里预留内存空间， [pool drain]; 表示释放内存空间。&lt;/li&gt;
   &lt;li&gt;NSLog具有自动换行功能，因此不需要\n&lt;/li&gt;
@@ -314,7 +314,7 @@ finally:
 &lt;pre&gt;&lt;code&gt;try:
     raise MyError #自己抛出一个异常
 except MyError:
-    print 'a error'
+    print &#39;a error&#39;
 
 raise ValueError,’invalid argument’
 &lt;/code&gt;&lt;/pre&gt;
@@ -521,7 +521,7 @@ PROMPT3
 
 &lt;p&gt;一个附加的 psql 变量的有用特性是你可以把它们替换（”代换”）成正规的 SQL 语句。这样做的语法同样还是变量名前面加一个冒号（:）。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set foo 'my_table'
+&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set foo &#39;my_table&#39;
 testdb=&amp;gt; SELECT * FROM :foo;
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -529,16 +529,16 @@ testdb=&amp;gt; SELECT * FROM :foo;
 
 &lt;p&gt;利用这个功能的一个时髦的应用是通过使用一个随后的语句中最后插入的 OID 建立一个外键仿真场景。 另一个可能用到这个机制的地方是把一个文件的内容拷贝到一个字段里面去。 首先把文件装载到一个变量然后象上面那样处理。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set content '\'' `cat my_file.txt` '\''
+&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set content &#39;\&#39;&#39; `cat my_file.txt` &#39;\&#39;&#39;
 testdb=&amp;gt; INSERT INTO my_table VALUES (:content);
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;这样处理的一个可能问题是 my_file.txt 可能包含单引号。这些需要被逃逸以免在处理第三行时不会导致语法错误。 可以使用程序 sed来做这个处理：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set content '\'' `sed -e &quot;s/'/\\\\\\'/g&quot; &amp;lt; my_file.txt` '\''
+&lt;pre&gt;&lt;code&gt;testdb=&amp;gt; \set content &#39;\&#39;&#39; `sed -e &quot;s/&#39;/\\\\\\&#39;/g&quot; &amp;lt; my_file.txt` &#39;\&#39;&#39;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;观察正确数量的反斜杠（6）！你可以这样解释它：在 psql 分析完这行后，它把 sed -e “s/’/\'/g” &amp;lt; my_file.txt 传递给shell。 shell 将对双引号里的东西做其处理然后用参数 -e 和 s/’/\‘/g执行 sed。当 sed分析这些时， 它将把双反斜杠替换为单个反斜杠然后进行替换。 可能有时候你认为所有 Unix 命令使用同一个逃逸字符是个好事。 但具有讽刺意味的事实是你可能不得不逃逸所有反斜杠，因为 SQL 文本常量同样也惨遭这种解释。 这种情况下你可能最好在外部准备文件。&lt;/p&gt;
+&lt;p&gt;观察正确数量的反斜杠（6）！你可以这样解释它：在 psql 分析完这行后，它把 sed -e “s/’/\&#39;/g” &amp;lt; my_file.txt 传递给shell。 shell 将对双引号里的东西做其处理然后用参数 -e 和 s/’/\‘/g执行 sed。当 sed分析这些时， 它将把双反斜杠替换为单个反斜杠然后进行替换。 可能有时候你认为所有 Unix 命令使用同一个逃逸字符是个好事。 但具有讽刺意味的事实是你可能不得不逃逸所有反斜杠，因为 SQL 文本常量同样也惨遭这种解释。 这种情况下你可能最好在外部准备文件。&lt;/p&gt;
 
 &lt;p&gt;因为冒号也可以合法的出现在 SQL 命令里，便有下面规则的应用： 如果没有设置变量，字符序列 “冒号+名称” 不会被改变。 在任何情况下你都可以用反斜杠逃逸冒号以保护它免于被解释。 （变量的冒号语法是 SQL 用于嵌入查询语言的标准，如 ECPG。用于数组片段和类型转换的冒号语法是 PostgreSQL 扩展，因此有冲突。）&lt;/p&gt;
 
