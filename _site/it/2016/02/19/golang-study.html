@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Tags</title>
+	<title>Go语言入门</title>
 	
 	<meta name="author" content="Falcon">
 
@@ -142,129 +142,155 @@
 
 	<div class="col-sm-9 col-sm-offset-3">
 		<div class="page-header">
-  <h1>Tags </h1>
+  <h1>Go语言入门 </h1>
 </div>
+	
+<article>
 
+	<div class="col-sm-10">
+	 <span class="post-date">
+	   
+	   February 
+	   19th,
+	   
+	   2016
+	 </span>
+	  <div class="article_body">
+	  <h1 id="go">GO语言介绍</h1>
 
+<p>Go语言是谷歌2009发布的第二款开源编程语言。
+Go语言专门针对多处理器系统应用程序的编程进行了优化，使用Go编译的程序可以媲美C或C++代码的速度，而且更加安全、支持并行进程。</p>
 
+<h1 id="section">安装</h1>
 
+<p>Go语言官网为<a href="http://www.golang.org">www.golang.org</a>，不过由于网络原因（你懂的），我们无法正常访问，不过好在国内有众多Go语言爱好者，因此可以在墙内下载<a href="http://www.golangtc.com">www.golangtc.com</a>。
+根据不同平台，下载对应版本。安装完成后，配置GOROOT和GOPATH，注意，GOROOT为Go语言安装路径。如：</p>
 
-<div class="col-sm-3 col-xs-6">
-    <ul class="nav nav-tabs-vertical">
-    
-      
-      <li>
-          <a href="#CSharp-ref" data-toggle="tab">
-            CSharp<span class="badge pull-right">1</span>
-         </a>
-      </li>
-   
-      
-      <li>
-          <a href="#Linq-ref" data-toggle="tab">
-            Linq<span class="badge pull-right">1</span>
-         </a>
-      </li>
-   
-      
-      <li>
-          <a href="#Objective-C-ref" data-toggle="tab">
-            Objective-C<span class="badge pull-right">1</span>
-         </a>
-      </li>
-   
-      
-      <li>
-          <a href="#PostgreSQL-ref" data-toggle="tab">
-            PostgreSQL<span class="badge pull-right">2</span>
-         </a>
-      </li>
-   
-      
-      <li>
-          <a href="#Python-ref" data-toggle="tab">
-            Python<span class="badge pull-right">1</span>
-         </a>
-      </li>
-   
-      
-      <li>
-          <a href="#golang-ref" data-toggle="tab">
-            golang<span class="badge pull-right">1</span>
-         </a>
-      </li>
-   
-   </ul>
-</div>
-<!-- Tab panes -->
-<div class="tab-content col-sm-9 col-xs-6">
-  
-    
-    <div class="tab-pane" id="CSharp-ref">
-      <h2 style="margin-top: 0px">Posts tagged  with CSharp</h2>
-      <ul class="list-unstyled">
-        
-          <li style="line-height: 35px;"><a href="/it/csharp/2014/12/19/linq-groupby.html">Linq中GroupBy的应用</a> <span class="text-muted">- December 19, 2014</span></li>
-        
-      </ul>
-    </div>
-  
-    
-    <div class="tab-pane" id="Linq-ref">
-      <h2 style="margin-top: 0px">Posts tagged  with Linq</h2>
-      <ul class="list-unstyled">
-        
-          <li style="line-height: 35px;"><a href="/it/csharp/2014/12/19/linq-groupby.html">Linq中GroupBy的应用</a> <span class="text-muted">- December 19, 2014</span></li>
-        
-      </ul>
-    </div>
-  
-    
-    <div class="tab-pane" id="Objective-C-ref">
-      <h2 style="margin-top: 0px">Posts tagged  with Objective-C</h2>
-      <ul class="list-unstyled">
-        
-          <li style="line-height: 35px;"><a href="/it/objective-c/2015/01/10/objective-c-start.html">Objective-C 语法简介</a> <span class="text-muted">- January 10, 2015</span></li>
-        
-      </ul>
-    </div>
-  
-    
-    <div class="tab-pane" id="PostgreSQL-ref">
-      <h2 style="margin-top: 0px">Posts tagged  with PostgreSQL</h2>
-      <ul class="list-unstyled">
-        
-          <li style="line-height: 35px;"><a href="/it/db/2014/12/02/postgresql-psql.html">PostgreSQL 命令行 psql</a> <span class="text-muted">- December 02, 2014</span></li>
-        
-          <li style="line-height: 35px;"><a href="/it/db/2014/12/01/postgresql-pg_dump.html">PostgreSQL 命令行pg_dump</a> <span class="text-muted">- December 01, 2014</span></li>
-        
-      </ul>
-    </div>
-  
-    
-    <div class="tab-pane" id="Python-ref">
-      <h2 style="margin-top: 0px">Posts tagged  with Python</h2>
-      <ul class="list-unstyled">
-        
-          <li style="line-height: 35px;"><a href="/it/python/2014/12/05/python-errors.html">Python异常处理</a> <span class="text-muted">- December 05, 2014</span></li>
-        
-      </ul>
-    </div>
-  
-    
-    <div class="tab-pane" id="golang-ref">
-      <h2 style="margin-top: 0px">Posts tagged  with golang</h2>
-      <ul class="list-unstyled">
-        
-          <li style="line-height: 35px;"><a href="/it/2016/02/19/golang-study.html">Go语言入门</a> <span class="text-muted">- February 19, 2016</span></li>
-        
-      </ul>
-    </div>
-  
-</div>
+<pre><code>windows:      c:\go
+linux:        /usr/local/go
+</code></pre>
 
+<p>GOPATH为Go源码所在路径。注意GOROOT和GOPATH的路径一定不能相同。</p>
+
+<h1 id="hello-world">Hello World</h1>
+
+<pre><code>package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello World")
+}
+</code></pre>
+
+<p>每个Go源文件开头都有一个package声明语句，指明源文件所在的包。同时，我们也可以根据具体的需要 来选择导入(import语句)特定功能的包。在这个例子中，我们通过导入fmt包来使用我们熟悉的printf函数。 不过在Go语言中，Printf函数的是大写字母开头，并且以fmt包名作为前缀：fmt.Printf。</p>
+
+<p>关键字func用于定义函数。在所有初始化完成后，程序从main包中的main函数开始执行。</p>
+
+<p>常量字符串可以包含Unicode字符，采用UTF-8编码。实际上，所有的Go语言源文件都采用UTF-8编码。</p>
+
+<p>代码注释的方式和C++类似：</p>
+
+<pre><code>      /* ... */
+      // ... 稍后，我们还有很多的关于打印的话题。
+</code></pre>
+
+<h1 id="section-1">编译</h1>
+<p>打开终端，定位到源码所在目录，运行以下命令</p>
+
+<pre><code>go build helloworld.go
+go run helloworld.go
+helloworld
+</code></pre>
+
+<p>结果为：</p>
+
+<pre><code>Hello World
+</code></pre>
+
+	  </div>
+
+		
+		<ul class="tag_box list-unstyled list-inline">
+		  <li><i class="fa fa-folder-open"></i></li>
+		  
+		  
+			 
+				<li><a href="/categories.html#IT-ref">
+					IT <span>(6)</span>
+					
+				</a></li>
+			
+		  
+		</ul>
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#golang-ref">
+					golang <span>(1)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Go语言入门"
+           onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php"
+           onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus"
+           onclick="window.open('https://plus.google.com/share?url='+window.location.href, 'google-plus-share', 'width=490,height=530');return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+
+      <section class="col-sm-6 author">
+        <img src="/assets/media/baobao.jpg" class="img-circle" style="width: 60px; height: 60px;" />
+        <h4 class="section-title author-name">Falcon</h4>
+        <p class="author-bio">茶隼的自言自语</p>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="/it/objective-c/2015/01/10/objective-c-start.html" title="Objective-C 语法简介">&larr; Previous</a></li>
+		  
+		  
+			<li class="next disabled"><a>Next &rarr;</a>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
 <div class="clearfix"></div>
-
 
 
 

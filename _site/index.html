@@ -151,6 +151,80 @@
 
   <span class="post-date">
     
+    February
+    19th,
+    
+    2016
+  </span>
+
+  <h2>
+    <a href="/it/2016/02/19/golang-study.html">Go语言入门</a>
+  </h2>
+
+  <div>
+    
+    <h1 id="go">GO语言介绍</h1>
+
+<p>Go语言是谷歌2009发布的第二款开源编程语言。
+Go语言专门针对多处理器系统应用程序的编程进行了优化，使用Go编译的程序可以媲美C或C++代码的速度，而且更加安全、支持并行进程。</p>
+
+<h1 id="section">安装</h1>
+
+<p>Go语言官网为<a href="http://www.golang.org">www.golang.org</a>，不过由于网络原因（你懂的），我们无法正常访问，不过好在国内有众多Go语言爱好者，因此可以在墙内下载<a href="http://www.golangtc.com">www.golangtc.com</a>。
+根据不同平台，下载对应版本。安装完成后，配置GOROOT和GOPATH，注意，GOROOT为Go语言安装路径。如：</p>
+
+<pre><code>windows:      c:\go
+linux:        /usr/local/go
+</code></pre>
+
+<p>GOPATH为Go源码所在路径。注意GOROOT和GOPATH的路径一定不能相同。</p>
+
+<h1 id="hello-world">Hello World</h1>
+
+<pre><code>package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello World")
+}
+</code></pre>
+
+<p>每个Go源文件开头都有一个package声明语句，指明源文件所在的包。同时，我们也可以根据具体的需要 来选择导入(import语句)特定功能的包。在这个例子中，我们通过导入fmt包来使用我们熟悉的printf函数。 不过在Go语言中，Printf函数的是大写字母开头，并且以fmt包名作为前缀：fmt.Printf。</p>
+
+<p>关键字func用于定义函数。在所有初始化完成后，程序从main包中的main函数开始执行。</p>
+
+<p>常量字符串可以包含Unicode字符，采用UTF-8编码。实际上，所有的Go语言源文件都采用UTF-8编码。</p>
+
+<p>代码注释的方式和C++类似：</p>
+
+<pre><code>      /* ... */
+      // ... 稍后，我们还有很多的关于打印的话题。
+</code></pre>
+
+<h1 id="section-1">编译</h1>
+<p>打开终端，定位到源码所在目录，运行以下命令</p>
+
+<pre><code>go build helloworld.go
+go run helloworld.go
+helloworld
+</code></pre>
+
+<p>结果为：</p>
+
+<pre><code>Hello World
+</code></pre>
+
+    
+  </div>
+
+</article>
+
+
+<article class="home">
+
+  <span class="post-date">
+    
     January
     10th,
     

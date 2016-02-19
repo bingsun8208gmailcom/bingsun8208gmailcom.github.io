@@ -7,6 +7,65 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Go语言入门</title>
+				<description>&lt;h1 id=&quot;go&quot;&gt;GO语言介绍&lt;/h1&gt;
+
+&lt;p&gt;Go语言是谷歌2009发布的第二款开源编程语言。
+Go语言专门针对多处理器系统应用程序的编程进行了优化，使用Go编译的程序可以媲美C或C++代码的速度，而且更加安全、支持并行进程。&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;安装&lt;/h1&gt;
+
+&lt;p&gt;Go语言官网为&lt;a href=&quot;http://www.golang.org&quot;&gt;www.golang.org&lt;/a&gt;，不过由于网络原因（你懂的），我们无法正常访问，不过好在国内有众多Go语言爱好者，因此可以在墙内下载&lt;a href=&quot;http://www.golangtc.com&quot;&gt;www.golangtc.com&lt;/a&gt;。
+根据不同平台，下载对应版本。安装完成后，配置GOROOT和GOPATH，注意，GOROOT为Go语言安装路径。如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;windows:      c:\go
+linux:        /usr/local/go
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;GOPATH为Go源码所在路径。注意GOROOT和GOPATH的路径一定不能相同。&lt;/p&gt;
+
+&lt;h1 id=&quot;hello-world&quot;&gt;Hello World&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Hello World&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;每个Go源文件开头都有一个package声明语句，指明源文件所在的包。同时，我们也可以根据具体的需要 来选择导入(import语句)特定功能的包。在这个例子中，我们通过导入fmt包来使用我们熟悉的printf函数。 不过在Go语言中，Printf函数的是大写字母开头，并且以fmt包名作为前缀：fmt.Printf。&lt;/p&gt;
+
+&lt;p&gt;关键字func用于定义函数。在所有初始化完成后，程序从main包中的main函数开始执行。&lt;/p&gt;
+
+&lt;p&gt;常量字符串可以包含Unicode字符，采用UTF-8编码。实际上，所有的Go语言源文件都采用UTF-8编码。&lt;/p&gt;
+
+&lt;p&gt;代码注释的方式和C++类似：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;      /* ... */
+      // ... 稍后，我们还有很多的关于打印的话题。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;编译&lt;/h1&gt;
+&lt;p&gt;打开终端，定位到源码所在目录，运行以下命令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;go build helloworld.go
+go run helloworld.go
+helloworld
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Hello World
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+				<pubDate>Fri, 19 Feb 2016 00:00:00 +0800</pubDate>
+				<link>/it/2016/02/19/golang-study.html</link>
+				<guid isPermaLink="true">/it/2016/02/19/golang-study.html</guid>
+			</item>
+		
+			<item>
 				<title>Objective-C 语法简介</title>
 				<description>&lt;h1 id=&quot;section&quot;&gt;概述&lt;/h1&gt;
 
