@@ -7,6 +7,58 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Go编程题目：1、Multiples of 3 and 5（3和5的倍数）</title>
+				<description>&lt;h1 id=&quot;question&quot;&gt;Question&lt;/h1&gt;
+&lt;p&gt;If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.&lt;/p&gt;
+
+&lt;p&gt;Find the sum of all the multiples of 3 or 5 below 1000.&lt;/p&gt;
+
+&lt;p&gt;如果我们列出所有自然数低于10且为3或5的倍数,可以得到3、5、6和9。这些倍数的总和是23。
+找到3或5的倍数的总和1000以下。&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;解题算法&lt;/h1&gt;
+
+&lt;p&gt;3的倍数相加可以简化为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;3+6+9+12+......+999=3*(1+2+3+4+...+333)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同理，5的倍数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;5+10+15+...+995=5*(1+2+....+199)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;根据规律可以简化为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// target = 除数（999），n = 被除数（3、5）
+p  = target / n
+sum = n * (p * (p + 1)) / 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因此，程序为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var target = 999
+
+func sumDivision(n int) int {
+	p := target / n
+	return n * (p * (p + 1)) / 2
+}
+
+func main() {
+	sum := sumDivision(3) + sumDivision(5) - sumDivision(15)
+
+	fmt.Println(sum)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果为：233168&lt;/p&gt;
+</description>
+				<pubDate>Sat, 20 Feb 2016 00:00:00 +0800</pubDate>
+				<link>/it/2016/02/20/golang-problem-question001.html</link>
+				<guid isPermaLink="true">/it/2016/02/20/golang-problem-question001.html</guid>
+			</item>
+		
+			<item>
 				<title>Go语言入门</title>
 				<description>&lt;h1 id=&quot;go&quot;&gt;GO语言介绍&lt;/h1&gt;
 
